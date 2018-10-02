@@ -4,7 +4,11 @@ Welcome to my blog, I very recently got engaged. Give that my background is work
 
 ### You'll need a server! 
 
-I love terraform, and my current employer don't do a lot of work on the cloud, so I've been itching for a reason to use it again. Natrually, it makes sense to use terraform to build my server. 
+I love terraform, and my current employer doesn't do a lot of work on the cloud, so I've been itching for a reason to use it again. Natrually, it makes sense to use it to build my server. I really like Hetzner, because they are crazy cheap and hosted in Europe.
+
+A CX21 is 2vCPU, 4GB Ram, 40GB Disk and 20TB Throughput (Per Month) for €5.88, which I think is a great price. 
+
+TODO: Add the code for generating SSH-KEYS to the host for better security. 
 
 #### Terraform (main.tf) 
 ```
@@ -18,11 +22,6 @@ resource "hcloud_server" "jira" {
   name = "${var.name}"
   image = "${var.image}"
   server_type = "${var.server_type}"
-}
-
-resource "hcloud_floating_ip" "master" {
-  type = "ipv4"
-  server_id = "${hcloud_server.jira.id}"
 }
 ```
 #### Terraform (variables.tf)
@@ -50,11 +49,11 @@ variable "server_type" {
 }
 ```
 
+### Jira
 
-### Jekyll Themes
+Jira is used by thousands of developers everyday, wedding planners probably not so much. I have seen a few blog posts and tweets about people in a simmilar mindset to me, 
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/nicpalmer/sewedding/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+* https://community.atlassian.com/t5/Jira-articles/A-Jira-Wedding-Key-Love/ba-p/830807
+* https://twitter.com/Jira/status/668940888597467136
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+My idea here is that my partner and I can have a solid idea, of what we have to do, when by and how. (my partner especially likes the idea of an approval/review workflow where she can force me to rework things she doesn't like...) 
