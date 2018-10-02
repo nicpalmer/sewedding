@@ -1,32 +1,55 @@
-## Welcome to GitHub Pages
+## A software engineer's guide to planning a wedding
 
-You can use the [editor on GitHub](https://github.com/nicpalmer/sewedding/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Welcome to my blog, I very recently got engaged. Give that my background is working with computers I felt that I could use these tools to help plan my wedding. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### You'll need a server! 
 
-### Markdown
+I love terraform, and my current employer don't do a lot of work on the cloud, so I've been itching for a reason to use it again. Natrually, it makes sense to use terraform to build my server. 
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+#### Terraform (main.tf) 
+```
+// Token from variables.tf - this is the environment variable TF_VAR_hcloud_token
+provider "hcloud" {
+  token = "${var.hcloud_token}"
+  endpoint = "${var.hcloud_endpoint }"
+}
 
-```markdown
-Syntax highlighted code block
+resource "hcloud_server" "jira" {
+  name = "${var.name}"
+  image = "${var.image}"
+  server_type = "${var.server_type}"
+}
 
-# Header 1
-## Header 2
-### Header 3
+resource "hcloud_floating_ip" "master" {
+  type = "ipv4"
+  server_id = "${hcloud_server.jira.id}"
+}
+```
+#### Terraform (variables.tf)
 
-- Bulleted
-- List
+```
+// Remember to set this as an enviroment variable
+// `export TF_VAR_hcloud_token='<YOUR_TOKEN_HERE>'
 
-1. Numbered
-2. List
+variable "hcloud_token" {}
 
-**Bold** and _Italic_ and `Code` text
+variable "hcloud_endpoint" {
+  default = "https://api.hetzner.cloud/v1"
+}
 
-[Link](url) and ![Image](src)
+variable "name" {
+  default = "jira"
+}
+
+variable "image" {
+  default = "centos-7"
+}
+
+variable "server_type" {
+  default = "cx21"
+}
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
 ### Jekyll Themes
 
