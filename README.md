@@ -57,3 +57,6 @@ Jira is used by thousands of developers everyday, wedding planners probably not 
 * https://twitter.com/Jira/status/668940888597467136
 
 My idea here is that my partner and I can have a solid idea, of what we have to do, when by and how. (my partner especially likes the idea of an approval/review workflow where she can force me to rework things she doesn't like...) 
+
+The workflow looks at little like this;
+
